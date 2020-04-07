@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext } from "react";
+import { withRouter } from "react-router";
+import "./App.css";
+import { AppContext } from "./context/StoreProvider";
+import logo from "./logo.svg";
 
-function App() {
+const App = ({ history, userLoginFacebook }) => {
+  const onSuccess = () => history.push("profile");
+
+  const handleFacebookLogin = async () => await userLoginFacebook(onSuccess);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
         <a
-          className="App-link"
-          href="https://reactjs.org"
+          onClick={handleFacebookLogin}
+          className="App-link facebook"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Login com facebook
+        </a>
+        <a className="App-link email" href="/login">
+          Login com e-mail
         </a>
       </header>
     </div>
   );
-}
+};
 
-export default App;
+export default withRouter(props => <App {...useContext(AppContext)} {...props} />);

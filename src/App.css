@@ -19,13 +19,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
 .App-link {
-  color: #61dafb;
+  color: white;
+  width: 200px;
+  height: 25px;
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.facebook {
+  background-color: #385898;
+}
+.App-link.email {
+  margin-top: 20px;
+  background-color: red;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +48,98 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.field > label {
+  margin-bottom: 5px;
+}
+
+.field > .text-field {
+  width: 250px;
+  height: 20px;
+  border-radius: 4px;
+  padding: 10px;
+  border: none;
+  font-size: 14px;
+}
+
+.field > .text-field::placeholder {
+  font-weight: bold;
+  color: #ccc;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.field > .btn-submit {
+  margin-top: 20px;
+  height: 40px;
+  width: 250px;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: red;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 250px;
+}
+
+.profile > .providers > span {
+  color: green;
+}
+
+.profile > .buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+}
+
+.profile > .buttons > button {
+  cursor: pointer;
+  margin-top: 20px;
+  width: 200px;
+  height: 30px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+  border: none;
+}
+
+.profile > .buttons > button:disabled {
+  background-color: gray;
+}
+
+.profile > .buttons > .facebook,
+.profile > .buttons > .email {
+  color: white;
+}
+
+.profile > .buttons > .email {
+  background-color: red;
+}
+
+.profile > .buttons > .exit {
+  background-color: white;
+}
+
+.profile > .error {
+  margin-left: 50px;
+  margin-top: 15px;
+  font-weight: bold;
+  color: red;
 }
