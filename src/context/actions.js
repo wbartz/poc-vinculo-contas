@@ -52,6 +52,29 @@ export const userLoginFacebook = (onSuccess) => async (dispatch) => {
     });
 };
 
+export const userLoginGoogle = (onSuccess) => async dispatch => {
+  dispatch({ type: USER_REQUEST_START });
+
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+  await auth
+    .signInWithPopup(googleProvider)
+    .then((result) => {
+      dispatch({
+        type: USER_REQUEST_SUCCESS,
+        data: result.user,
+      });
+      setCookie("user", result.user);
+      return onSuccess();
+    })
+    .catch((error) => {
+      dispatch({
+        type: USER_REQUEST_FAILURE,
+        error,
+      });
+    });
+}
+
 export const userLogout = (onSuccess) => async (dispatch) => {
   dispatch({ type: USER_REQUEST_START });
 
@@ -86,17 +109,20 @@ export const linkWithFacebook = (onSuccess, onError) => async (dispatch) => {
       return onSuccess(result.user);
     })
     .catch((error) => {
-      
-          dispatch({
-            type: USER_REQUEST_SUCCESS,
-          });
+      dispatch({
+        type: USER_REQUEST_SUCCESS,
+      });
       if (error.code === "auth/provider-already-linked") return onError(true);
     });
 };
 
-export const linkWithEmail = (username, password, onSuccess, onError) => async (dispatch) => {
-  console.log(username, password);
-  const credential = new firebase.auth.EmailAuthProvider.credential(username, password);
+export const linkWithEmail = (username, password, onSuccess, onError) => async (
+  dispatch
+) => {
+  const credential = new firebase.auth.EmailAuthProvider.credential(
+    username,
+    password
+  );
 
   dispatch({ type: USER_REQUEST_START });
 
@@ -114,5 +140,25 @@ export const linkWithEmail = (username, password, onSuccess, onError) => async (
       });
       if (error.code === "auth/provider-already-linked") return onError(true);
     });
+};
 
+export const linkWithGoogle = (onSuccess, onError) => async (dispatch) => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  dispatch({ type: USER_REQUEST_START });
+
+  await auth.currentUser
+    .linkWithPopup(provider)
+    .then((result) => {
+      dispatch({
+        type: USER_REQUEST_SUCCESS,
+      });
+      return onSuccess(result.user);
+    })
+    .catch((error) => {
+      dispatch({
+        type: USER_REQUEST_SUCCESS,
+      });
+      if (error.code === "auth/provider-already-linked") return onError(true);
+    });
 };

@@ -31,12 +31,17 @@
   padding: 15px;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .facebook {
   background-color: #385898;
 }
 .App-link.email {
+  margin-top: 20px;
+  background-color: green;
+}
+.App-link.google {
   margin-top: 20px;
   background-color: red;
 }
@@ -112,7 +117,7 @@
   cursor: pointer;
   margin-top: 20px;
   width: 200px;
-  height: 30px;
+  height: 45px;
   border-radius: 4px;
   font-size: 14px;
   font-weight: bold;
@@ -125,11 +130,16 @@
 }
 
 .profile > .buttons > .facebook,
-.profile > .buttons > .email {
+.profile > .buttons > .email,
+.profile > .buttons > .google {
   color: white;
 }
 
 .profile > .buttons > .email {
+  background-color: green;
+}
+
+.profile > .buttons > .google {
   background-color: red;
 }
 

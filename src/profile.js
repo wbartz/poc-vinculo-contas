@@ -3,7 +3,7 @@ import { Loader } from "react-overlay-loader";
 import { withRouter } from "react-router";
 import "./App.css";
 import { AppContext } from "./context/StoreProvider";
-import Form from './form';
+import Form from "./form";
 import logo from "./logo.svg";
 import { getCookie } from "./utils";
 
@@ -12,6 +12,7 @@ const Profile = ({
   userLogout,
   linkWithFacebook,
   linkWithEmail,
+  linkWithGoogle,
   isLoading,
 }) => {
   const [user, setUser] = useState(null);
@@ -45,7 +46,12 @@ const Profile = ({
 
   const handleLink = async () => await linkWithFacebook(setUser, setLinked);
 
-  const handleLinkEmail = async (username, password) => await linkWithEmail(username, password, setUser, setLinked).then(() => setShowForm(false));
+  const handleLinkEmail = async (username, password) =>
+    await linkWithEmail(username, password, setUser, setLinked).then(() =>
+      setShowForm(false)
+    );
+  
+  const handleLinkGoogle = async () => await linkWithGoogle(setUser, setLinked);
 
   return (
     <div className="App">
@@ -84,19 +90,25 @@ const Profile = ({
           {user ? (
             <div className="buttons">
               <button className="facebook" onClick={handleLink} type="button">
-                Vincular facebook
+                Vincular Facebook
               </button>
 
-              {showForm ? (
-                <Form handleSubmit={handleLinkEmail} />
-              ) : null}
+              <button
+                className="google"
+                type="button"
+                onClick={handleLinkGoogle}
+              >
+                Vincular Google
+              </button>
+
+              {showForm ? <Form handleSubmit={handleLinkEmail} /> : null}
 
               <button
                 className="email"
                 onClick={() => setShowForm(!showForm)}
                 type="button"
               >
-                Vincular e-mail
+                Vincular E-mail
               </button>
 
               <button className="exit" onClick={handleLogout} type="button">
