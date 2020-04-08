@@ -22,6 +22,7 @@ export const userLogin = (username, password, onSuccess) => async (
       return onSuccess();
     })
     .catch((error) => {
+      console.log(error);
       dispatch({
         type: USER_REQUEST_FAILURE,
         error,
@@ -45,6 +46,7 @@ export const userLoginFacebook = (onSuccess) => async (dispatch) => {
       return onSuccess();
     })
     .catch((error) => {
+      console.log(error);
       dispatch({
         type: USER_REQUEST_FAILURE,
         error,
@@ -68,6 +70,7 @@ export const userLoginGoogle = (onSuccess) => async dispatch => {
       return onSuccess();
     })
     .catch((error) => {
+      console.log(error);
       dispatch({
         type: USER_REQUEST_FAILURE,
         error,
