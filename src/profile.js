@@ -13,6 +13,7 @@ const Profile = ({
   linkWithFacebook,
   linkWithEmail,
   linkWithGoogle,
+  linkWithOpenID,
   isLoading,
 }) => {
   const [user, setUser] = useState(null);
@@ -50,8 +51,10 @@ const Profile = ({
     await linkWithEmail(username, password, setUser, setLinked).then(() =>
       setShowForm(false)
     );
-  
+
   const handleLinkGoogle = async () => await linkWithGoogle(setUser, setLinked);
+
+  const handleLinkOpenID = async () => await linkWithOpenID(setUser, setLinked);
 
   return (
     <div className="App">
@@ -109,6 +112,14 @@ const Profile = ({
                 type="button"
               >
                 Vincular E-mail
+              </button>
+
+              <button
+                className="openid"
+                onClick={handleLinkOpenID}
+                type="button"
+              >
+                Vincular OpenID
               </button>
 
               <button className="exit" onClick={handleLogout} type="button">

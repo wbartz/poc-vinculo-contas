@@ -5,11 +5,12 @@ import "./App.css";
 import { AppContext } from "./context/StoreProvider";
 import logo from "./logo.svg";
 
-const App = ({ history, userLoginFacebook, userLoginGoogle, isLoading }) => {
+const App = ({ history, userLoginFacebook, userLoginGoogle, userLoginOpenID, isLoading }) => {
   const onSuccess = () => history.push("profile");
 
   const handleFacebookLogin = async () => await userLoginFacebook(onSuccess);
   const handleGoogleLogin = async () => await userLoginGoogle(onSuccess);
+  const handleOpenIDLogin = async () => await userLoginOpenID(onSuccess);
 
   return (
     <div className="App">
@@ -26,6 +27,9 @@ const App = ({ history, userLoginFacebook, userLoginGoogle, isLoading }) => {
         </a>
         <a className="App-link google" onClick={handleGoogleLogin}>
           Login com google
+        </a>
+        <a className="App-link openid" onClick={handleOpenIDLogin}>
+          Login com OpenID
         </a>
         <a className="App-link email" href="/login">
           Login com e-mail

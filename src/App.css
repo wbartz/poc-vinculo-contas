@@ -46,6 +46,11 @@
   background-color: red;
 }
 
+.App-link.openid {
+  margin-top: 20px;
+  background-color: #ee7c2a;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -141,6 +146,11 @@
 
 .profile > .buttons > .google {
   background-color: red;
+}
+
+.profile > .buttons > .openid {
+  background-color: #ee7c2a;
+  color: white;
 }
 
 .profile > .buttons > .exit {

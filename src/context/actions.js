@@ -54,7 +54,7 @@ export const userLoginFacebook = (onSuccess) => async (dispatch) => {
     });
 };
 
-export const userLoginGoogle = (onSuccess) => async dispatch => {
+export const userLoginGoogle = (onSuccess) => async (dispatch) => {
   dispatch({ type: USER_REQUEST_START });
 
   const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -76,7 +76,31 @@ export const userLoginGoogle = (onSuccess) => async dispatch => {
         error,
       });
     });
-}
+};
+
+export const userLoginOpenID = (onSuccess) => async (dispatch) => {
+  dispatch({ type: USER_REQUEST_START });
+
+  const openIDProvider = new firebase.auth.OAuthProvider("oidc.okta");
+
+  await auth
+    .signInWithPopup(openIDProvider)
+    .then((result) => {
+      dispatch({
+        type: USER_REQUEST_SUCCESS,
+        data: result.user,
+      });
+      setCookie("user", result.user);
+      return onSuccess();
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch({
+        type: USER_REQUEST_FAILURE,
+        error,
+      });
+    });
+};
 
 export const userLogout = (onSuccess) => async (dispatch) => {
   dispatch({ type: USER_REQUEST_START });
@@ -152,6 +176,27 @@ export const linkWithGoogle = (onSuccess, onError) => async (dispatch) => {
 
   await auth.currentUser
     .linkWithPopup(provider)
+    .then((result) => {
+      dispatch({
+        type: USER_REQUEST_SUCCESS,
+      });
+      return onSuccess(result.user);
+    })
+    .catch((error) => {
+      dispatch({
+        type: USER_REQUEST_SUCCESS,
+      });
+      if (error.code === "auth/provider-already-linked") return onError(true);
+    });
+};
+
+export const linkWithOpenID = (onSuccess, onError) => async (dispatch) => {
+  dispatch({ type: USER_REQUEST_START });
+
+  const openIDProvider = new firebase.auth.OAuthProvider("oidc.okta");
+
+  await auth.currentUser
+    .linkWithPopup(openIDProvider)
     .then((result) => {
       dispatch({
         type: USER_REQUEST_SUCCESS,
